@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HD Pizza</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+</head>
+<body style="background-color: bisque;">
+  {% load static %}
+  <nav class="navbar navbar-light" style="height: 90px; background-color: rgb(255, 255, 255);">
+    <div class="container-fluid">
+      <a class="navbar-brand mb-0 h1" href="/">
+        <img src="{% static 'pages/image/posters/logo.png' %}" style="mix-blend-mode: multiply;">
+        HD PIZZAS
+      </a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>SR No </th>
+          <th>Item </th>
+          <th>Qyt </th>
+          <th>Price</th>
+        </tr>
+      </thead>
+
+      <tbody id="table_body">
+  
+
+
+      </tbody>
+
+    </table>
+    <center>
+      <button type="submit" class="btn btn-primary">Order</button>
+    </center>
+  </div>
+  
+
+
+  <footer class="bg-dark text-center text-white">
+
+    <div class="row my-5 justify-content-center py-5">
+      <div class="col-11">
+        <div class="row ">
+
+          <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
+            <img src="{% static 'pages/image/posters/logo.png' %}">
+            <h3 class="text-muted mb-md-0 mb-5 bold-text">HD Pizza.</h3>
+          </div>
+
+          <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+            <h6 class="mb-3 mb-lg-4 bold-text "><b>WE Serve</b></h6>
+            <ul class="list-unstyled">
+              <li>Pizza</li>
+              <li>Bread</li>
+              <li>Drinks and Desserts</li>
+            </ul>
+          </div>
+
+          <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+            <h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5"><b>ADDRESS</b></h6>
+            <p class="mb-1">605, RATAN ICON BUILDING</p>
+            <p>SEAWOODS SECTOR</p>
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-xl-8 col-md-4 col-sm-4 col-auto my-md-0 mt-5 order-sm-1 order-3 align-self-end">
+            <p class="social text-muted mb-0 pb-0 bold-text"> <span class="mx-2"><i class="fa fa-facebook"
+                  aria-hidden="true"></i></span> <span class="mx-2"><i class="fa fa-linkedin-square"
+                  aria-hidden="true"></i></span> <span class="mx-2"><i class="fa fa-twitter"
+                  aria-hidden="true"></i></span> <span class="mx-2"><i class="fa fa-instagram"
+                  aria-hidden="true"></i></span> </p><small class="rights"><span>&#174;</span> HD Pizza All Rights
+              Reserved.</small>
+          </div>
+
+          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end ">
+            <h6 class="mt-55 mt-2 text-muted bold-text">
+              <b> Hitansh Doshi </b>
+            </h6>
+            <small>
+              <span><i class="fa fa-envelope" aria-hidden="true"></i></span> hkd159@gmail.com</small>
+          </div>
+
+          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
+            <h6 class="text-muted bold-text"><b>Aditya Dubey</b></h6><small><span><i class="fa fa-envelope"
+                  aria-hidden="true"></i></span> xxx@gmail.com</small>
+          </div>
+
+          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-3 align-self-end mt-3 ">
+            <h6 class="text-muted bold-text"><b>Shivam Dubey</b></h6><small><span><i class="fa fa-envelope"
+                  aria-hidden="true"></i></span> xxx@gmail.com</small>
+          </div>
+
+          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-4 align-self-end mt-3 ">
+            <h6 class="text-muted bold-text"><b>Summet Dubey</b></h6><small><span><i class="fa fa-envelope"
+                  aria-hidden="true"></i></span> xxx@gmail.com</small>
+          </div>
+
+          <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-5 align-self-end mt-3 ">
+            <h6 class="text-muted bold-text"><b>Shruti Dubey</b></h6><small><span><i class="fa fa-envelope"
+                  aria-hidden="true"></i></span> xxx@gmail.com</small>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      The above website is made for project perpose don't exepct any pizza delivery from us.
+      Coded With &#10084;&#65039; and &#9749; while 🎓
+    </div>
+
+  </footer>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+crossorigin="anonymous"></script>
+
+<script>
+
+  function rows(i, id, name, price){
+    var row = `<tr id="item${i}">
+          <th scope="row">${i + 1}</th>
+          <td>${name}</td>
+          <td>
+            <select class="form-control" id="qyt${i}" onchange="change_price(${i}, ${price})">
+              <option>0</option>
+              <option selected>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </td>
+          <td>
+            <span id="amt${i}"> ${price} </span>
+          </td>
+        </tr>`;
+
+      return row;
+  }
+
+  function change_price(id, price) {
+    var amt = document.getElementById("amt" + id);
+    var qyt = document.getElementById("qyt" + id);
+
+    amt.innerText = price * qyt.value;
+  }
+
+  function add_row(order){
+    var table = document.getElementById("table_body");
+    var data = "";
+    for(var i=0;i<order.length;i++){
+      console.log(order[i]['cost']);
+      data += rows(i, order[i]['id'], order[i]['name'], order[i]['cost']);
+    }
+    table.innerHTML = data;
+  }
+
+  const order = sessionStorage.getItem('order');
+
+  add_row(order);
+
+</script>
+
+</html>
