@@ -9,10 +9,49 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-</head>
-<body>
-  
+  <style>
+    body {
+      background-image: url('/static/pages/image/posters/Pizza-licious.png');
+    }
 
-  
+    .form{
+      width: 40%;
+      position: absolute;
+      left : 30%;
+      top: 20%;
+      background-color: rgb(255, 211, 205);
+      padding: 100px;
+      padding-top: 20px;
+      box-shadow: 5px 5px 2px 2px gray;
+      border-radius: 5%;
+    }
+  </style>
+
+</head>
+<body> 
+  {% load static %}
+
+  <form class="form">
+
+    <div style="padding-bottom: 50px;">
+      <center>
+      <img src="/static/pages/image/posters/logo.png" alt="logo" height="100px" >
+      </center>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password">
+    </div>
+
+    <button type="submit" class="btn btn-primary">sign in</button>
+  </form>
+
+
 </body>
 </html>
