@@ -28,9 +28,9 @@ def order(request):
 
   # return HttpResponse(str(request.user))
 
-  if not request.user.is_anonymous:
-  # context = {'order': [{'id': 25, 'name': 'pizza', 'cost': 50 }]}
-    context = {}
+  if request.user.is_anonymous:
+    context = {'order': [{'id': 25, 'name': 'pizza', 'cost': 50 }]}
+    # context = {}
     response = render(request, 'pages/order.html', context)
     return HttpResponse(response)
 

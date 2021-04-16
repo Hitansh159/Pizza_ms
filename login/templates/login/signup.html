@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+	<title>Pizza Go Signup</title>
+	<style type="text/css">
+		.container {
+
+			padding-top: 0px;
+			text-align: center;
+			width: 500px;
+		}
+
+		#homePageContainer {
+			margin-top: 30px;
+		}
+
+		html {
+			background: url("/static/pages/image/posters/bg.png") no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+			font-family: erif;
+		}
+
+		.ava {
+
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+		}
+
+		body {
+			background: none;
+			color: #000;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	
+	<div class="container" id="homePageContainer">
+
+		<img src="\static\pages\image\posters\logo.png" class="ava">
+
+		<h1 style="color:white;">Welcome to the Pizza GO!</h1>
+
+
+
+		<form method="POST" id="signUpForm" action="/auth/signup_test">
+			{% csrf_token %}
+			<p style="color: white;">Sign Up and Enjoy!</p>
+
+			<div class="form-group">
+				<input class="form-control" type="text" name="id" id="id" placeholder="Enter ID">
+			</div>
+
+			<div class="form-group">
+
+				<input class="form-control" type="text" name="phone" value="+91" placeholder="Phone number">
+			</div>
+
+			<div class="form-group">
+
+				<input class="form-control" type="password" name="password" id="password" placeholder="Password"
+					required>
+			</div>
+
+			<div class="form-group">
+
+				<input class="form-control" type="password" name="password" id="confirm_password"
+					placeholder="confirm_password" required>
+			</div>
+
+			<div class="form-group">
+
+				<input class="btn btn-success" type="submit" name="submit" value="Sign Up!">
+			</div>
+
+			<div class="form-group">
+				<a href="/auth/" style="text-decoration: none;">
+					<p class="form-control">Already have an account? Login here </p>
+				</a>
+			</div>
+
+		</form>
+	</div>
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>

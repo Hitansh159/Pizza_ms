@@ -11,19 +11,21 @@
 
   <style>
     body {
-      background-image: url('/static/pages/image/posters/Pizza-licious.png');
+      background-image: url('/static/pages/image/posters/bg.png');
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
     .form{
       width: 40%;
       position: absolute;
       left : 30%;
-      top: 20%;
-      background-color: rgb(255, 211, 205);
+      top: 9%;
+      /*background-color: rgb(255, 211, 205);*/
       padding: 100px;
       padding-top: 20px;
-      box-shadow: 5px 5px 2px 2px gray;
-      border-radius: 5%;
+      /*box-shadow: 5px 5px 2px 2px gray;*/
+      /*border-radius: 5%;*/
     }
   </style>
 
@@ -31,8 +33,8 @@
 <body> 
   {% load static %}
 
-  <form class="form">
-
+  <form class="form" method="POST" action="/auth/login_test">
+    {% csrf_token %}
     <div style="padding-bottom: 50px;">
       <center>
       <img src="/static/pages/image/posters/logo.png" alt="logo" height="100px" >
@@ -41,17 +43,28 @@
 
     <div class="mb-3">
       <label for="email" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+      <input type="id" class="form-control" name="id" id="id" aria-describedby="emailHelp">
     </div>
 
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password">
+      <input type="password" class="form-control" id="password" name="password">
     </div>
 
-    <button type="submit" class="btn btn-primary">sign in</button>
-  </form>
 
+    <center>
+      <button type="submit" class="btn btn-success">sign in</button>
+    </center>
+
+    <hr width=90%>
+    <div class="form-group">
+      <a href="signup" style="text-decoration: none;">
+        <p class="form-control">New Customer? Register here </p>
+      </a>
+    </div>  
+
+
+  </form>
 
 </body>
 </html>
