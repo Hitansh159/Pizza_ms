@@ -122,7 +122,7 @@
   </ul>
 
   <center>
-    <div id="pizzas" class="card-group">
+    <div id="pizzas">
     </div>
 
     <div id="breads">
@@ -163,22 +163,22 @@
               </div>`;
     }
 
-    function card(image, details, type) {
-
+    function card(id, name, image, details, price, avil, type) {
       var path = `static/pages/image/${type}/${image}`;
-      return `<div class="card" style="width: 18rem;display: inline-block;margin: 15px;padding: 10px">
+      var res = `<div class="card" style="width: 18rem;display: inline-block;margin: 15px;padding: 10px">
     <img src="${path}" class="card-img-top" alt="">
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
+      <h5 class="card-title">${name}</h5>
       <p class="card-text">
-        ${details}
+        <h5>Price: RS. ${price} </h5>
         <h6>Tag: </h6>
-        veg<br>
-        extra cheeze 
+        ${details}
       </p>
-      <button onclick="add_to_cart('', '')" class="btn btn-primary">order</button>
+      <button onclick="add_to_cart('${id}', '${name}', '${image}', '${details}', '${price}', '${avil}', '${type}')" class="btn btn-primary" ${avil=='True'?'':'disabled'}>order</button>
     </div>
   </div>`
+
+  	return res;
 
     }
 
@@ -199,36 +199,34 @@
       image_slide_node.innerHTML = image_slide_text;
     }
 
-    function create_card(image, details, type) {
+    function create_card(id, name, image, details, price, avil, type) {
       var body = document.getElementById(type);
       var text = body.innerHTML;
-      body.innerHTML = text + card(image, details, type);
+      body.innerHTML = text + card(id, name, image, details, price, avil, type);
     }
 
     // create_slides(["Pizza-licious.png", "maxresdefault.jpg"]);
-
     {% for image_dict in pizzas %}
-    create_card('{{image_dict.img}}', '{{ image_dict.details }}', 'pizzas');
+  	create_card('{{image_dict.id}}', '{{image_dict.name}}', '{{image_dict.img}}', `{{ image_dict.tag }}`, '{{image_dict.price}}', '{{image_dict.avail}}', 'pizzas');
     {% endfor %}
 
     {% for image_dict in breads %}
-    create_card('{{image_dict.img}}', '{{ image_dict.details }}', 'breads');
+    create_card('{{image_dict.id}}', '{{image_dict.name}}', '{{image_dict.img}}', `{{ image_dict.tag }}`, '{{image_dict.price}}', '{{image_dict.avail}}', 'breads');
     {% endfor %}
 
     {% for image_dict in drinks_desserts %}
-    create_card("{{ image_dict.img }}", "{{ image_dict.details }}", 'drinks_desserts')
+    create_card('{{image_dict.id}}', '{{image_dict.name}}', '{{image_dict.img}}', `{{ image_dict.tag }}`, '{{image_dict.price}}', '{{image_dict.avail}}', 'drinks_desserts');
     {% endfor %}
 
     {% for image_dict in combos %}
-    create_card("{{ image_dict.img }}", "{{ image_dict.details }}", "combos");
+    create_card('{{image_dict.id}}', '{{image_dict.name}}', '{{image_dict.img}}', `{{ image_dict.tag }}`, '{{image_dict.price}}', '{{image_dict.avail}}', "combos");
     {% endfor %}
 
 
     posters = []
     {% for image_dict in posters %}
-    {% if image_dict.img != 'logo.png' and image_dict.img != 'poster.png' and image_dict.img != 'cart.png' and image_dict.img != 'bg.png' %}
-
-    posters.push('posters/' + '{{image_dict.img}}');
+    {% if image_dict != 'logo.png' and image_dict != 'poster.png' and image_dict != 'cart.png' and image_dict != 'bg.png' %}
+    	posters.push('posters/' + '{{image_dict}}');
     {% endif %}
     {% endfor %}
     create_slides(posters);
@@ -280,14 +278,14 @@
     }
 
     var order_items = [];
-    function add_to_cart(type, id) {
-      order_items.push({ 'type': type, 'id': id });
-
+    function add_to_cart(id, name, image, details, price, avil, type) {
+      order_items.push({'id':id, 'name': name, 'image': image, 'details': details, 'price': price, 'avil': avil, 'type': type });
+      console.log(order_items);
       anim();
     }
 
     function order() {
-      sessionStorage.setItem('order', order_items);
+      sessionStorage.setItem('order', JSON.stringify(order_items));
       location.href = '/order';
     }
 
@@ -379,13 +377,13 @@
     <hr>
 
     <!-- Grid row -->
-    <div class="row d-flex align-items-center">
+    <div class="row justify-content-center">
 
       <!-- Grid column -->
-      <div class="col-md-7 col-lg-8">
+      <div class="col-md-6 col-lg-8">
 
         <!--Copyright-->
-        <p class="text-center text-md-left">© 2020 Copyright:
+        <p class="text-center">© 2020 Copyright:
           
             <strong> Pizza Go!</strong>
           </a>

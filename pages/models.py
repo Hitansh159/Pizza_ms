@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Item(models.Model):
   image = models.ImageField()
@@ -9,14 +10,15 @@ class Item(models.Model):
   stock = models.BooleanField()
 
 class Order(models.Model):
-  user = models.OneToOneField('login.Customer', on_delete=models.CASCADE)
-  
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  address = models.TextField(default = "")
 
 
 class OrderItem(models.Model):
-  itemId = models.ForeignKey('Item', on_delete=models.CASCADE )
-  orderId = models.ForeignKey('Order', on_delete=models.CASCADE)
+  itemId = models.IntegerField()
+  orderId = models.IntegerField()
   quantity = models.IntegerField()
+  description = models.TextField(default = "")
   totalCost = models.DecimalField(decimal_places=2, max_digits=10)
 
 
