@@ -6,7 +6,6 @@ from .models import Customer
 # include "pages/order.html" 
 
 def login_pag(request):
-  # template = loader.get_template('login/login.html')
   return HttpResponse(render(request, 'login/login.html', {"result":""}))
 
 def login_test(request):
@@ -25,11 +24,6 @@ def signup(request):
 def signup_test(request):
 
 	user = User.objects.create_user(request.POST['id'], password= request.POST['password'])
-	# cust = Customer()
-	# cust.user = user
-	# cust.address = request.POST['address']
-
-	# cust.save()
 	user.save()
 
 	return HttpResponse(render(request, 'login/login.html', {}))
