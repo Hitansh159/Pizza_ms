@@ -8,17 +8,17 @@ import json
 import time
 from pages import pdfgen
 from reportlab.pdfgen import canvas
-import webbrowser, os
 
 
 class header:
-  def __init__(self,CustomerName,CustomerContact, orderId):
+  def __init__(self,CustomerName,Email, orderId):
     self.InvoiceNumber= orderId
     self.CustomerName=CustomerName
-    self.CustomerContact=CustomerContact
+    self.Email=Email
     timedate=time.asctime()
     self.date=timedate[4:8]+timedate[8:10]+", "+timedate[20:24]+"."
     self.time=" "+timedate[11:20]
+
 class product:
   def __init__(self,name,quantity,rate,tax,discount):
     self.name=name
@@ -27,7 +27,6 @@ class product:
     self.tax=tax
     self.total=(quantity*rate)-discount
     self.discount=discount
-
 
 def index(request):
 
@@ -52,6 +51,7 @@ def index(request):
   contexts['posters'] = []
   for files in os.listdir( os.getcwd() +"/pages/static/pages/image/posters"):
     contexts['posters'].append(files)
+
 
   response = render(request, 'pages/index.html', contexts)
   return HttpResponse(response)
@@ -90,7 +90,7 @@ def order_done(request):
     temp = [item['item'], int(item['qyt']), float(item['price'])/float(item['qyt']), 0, float(item['price']), 18.0]
     Products.append(temp)
 
-  genratePDF(request.user, '123456789', order_db.id, Products)
+  genratePDF(request.user, request.user.email, order_db.id, Products)
 
   path = './Invoice/'+str(order_db.id)+'.pdf'
   # with open(path, 'rb') as fh:  
@@ -101,9 +101,22 @@ def order_done(request):
 
   return HttpResponse("Working")
 
-def genratePDF(custName, custCont, orderId, Products ):
 
-  head=header(custName, custCont, orderId)
+def my_order(request):
+  return HttpResponse(render(request, 'pages/my_orders.html', {}))
+
+def payment(request):
+  return HttpResponse(render(request, 'pages/payment.html', {}))
+
+def paypal(request):
+  return HttpResponse(render(request, 'pages/paypal.html', {}))
+
+def netbanking(request):
+  return HttpResponse(render(request, 'pages/netbanking.html', {}))
+
+def genratePDF(custName, custEmail, orderId, Products ):
+
+  head=header(custName, custEmail, orderId)
   pdf= canvas.Canvas(".\\Invoice\\"+str(int(head.InvoiceNumber))+".pdf")
   pdfgen.header(head,pdf)
   pdfgen.middle(pdf)
@@ -120,6 +133,8 @@ def genratePDF(custName, custCont, orderId, Products ):
   pdf.setFont("Courier-Bold",11)
   pdfgen.footer(pdf,Products)
   pdf.save()
-  webbrowser.open(".\\InvoiceGenerator\\"+str(int(head.InvoiceNumber))+".pdf")
+  
+
+ 
 
 

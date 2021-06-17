@@ -20,7 +20,7 @@
 		}
 
 		#homePageContainer {
-			margin-top: 30px;
+			margin-top: 0px;
 		}
 
 		html {
@@ -63,12 +63,17 @@
 			<p style="color: white;">Sign Up and Enjoy!</p>
 
 			<div class="form-group">
-				<input class="form-control" type="text" name="id" id="id" placeholder="Enter ID">
+				<input class="form-control" type="text" name="name" id="name" placeholder="Enter Name">
+			</div>
+
+
+			<div class="form-group">
+				<input class="form-control" type="email" name="id" id="id" placeholder="Enter Email ID">
 			</div>
 
 			<div class="form-group">
 
-				<input class="form-control" type="text" name="phone" value="+91" placeholder="Phone number">
+				<input class="form-control" type="number" name="phone" value="+91" placeholder="Phone number">
 			</div>
 
 			<div class="form-group">
@@ -84,13 +89,12 @@
 			</div>
 
 			<div class="form-group">
-
-				<input class="btn btn-success" type="submit" name="submit" value="Sign Up!">
+				<input class="btn btn-success" type="submit" name="submit" id="submit" value="Sign Up!">
 			</div>
 
 			<div class="form-group">
 				<a href="/auth/" style="text-decoration: none;">
-					<p class="form-control">Already have an account? Login here </p>
+					<p class="form-control">Already have an account? <u>Login here</u> </p>
 				</a>
 			</div>
 
@@ -107,5 +111,18 @@
 
 
 </body>
+<script type="text/javascript">
+	pass = document.getElementById('password');
+	c_pass = document.getElementById('confirm_password');
+	c_pass.addEventListener('change', checkSame);
+
+	function checkSame(){
+		if(c_pass.value != pass.value)
+			document.getElementById('submit').disabled = "true";
+		else
+			$('#submit').removeAttr("disabled"); 
+	}
+
+</script>
 
 </html>
