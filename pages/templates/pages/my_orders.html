@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+			<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+		<style>
+				body{
+				background-color:bisque;
+				}
+				.panel-order .row {
+					border-bottom: 1px solid #ccc;
+				}
+				.panel-heading{
+					margin-top:70px;
+					font-size:45px;
+					
+				}
+				.panel-body{
+					
+				}
+				.panel-order .row:last-child {
+					border: 0px;
+				}
+				.panel-order .row .col-md-1  {
+					text-align: center;
+					padding-top: 15px;
+				}
+				.panel-order .row .col-md-1 img {
+					width: 70px;
+					height: 60px;
+				}
+				.panel-order .row .row {
+					border-bottom: 0;
+				}
+				.panel-order .row .col-md-11 {
+					border-left: 1px solid #ccc;
+				}
+				.panel-order .row .row .col-md-12 {
+					padding-top: 7px;
+					padding-bottom: 7px; 
+				}
+				.panel-order .row .row .col-md-12:last-child {
+					font-size: 12px; 
+					color: #efefef;  
+					background: #555 ;
+				}
+				.panel-order .btn-group {
+					margin: 0px;
+					padding: 0px;
+				}
+				.panel-order .panel-body {
+					padding-top: 0px;
+					padding-bottom: 0px;
+				}
+				.panel-order .panel-deading {
+					margin-bottom: 0;
+				}  
+				#cancel{
+					padding:13px;
+					background-color:red;
+					color: white;
+					border-radius:12px;
+				}
+				#repeat{
+					padding:13px;
+					background-color:green;
+					color: white;
+					border-radius:12px;
+				}
+		</style>
+	</head>
+	</body>
+		{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand mb-0 h1" href="\">
+    <img src="{% static 'pages/image/posters/logo.png' %}" style="mix-blend-mode: multiply;">
+    Pizza Go!
+  </a>
+
+  <div class="container-fluid" id="navbarSupportedContent">
+    
+    <ul class="navbar-nav mr-auto">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/signout">Log out</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="/my_orders">My orders</a>
+      </li>
+      {% endif %}
+
+      {% if user.is_anonymous %}
+      <li class="nav-item">
+        <a class="nav-link" href="/auth">Log in</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/signup">Sign up</a>
+      </li>
+      {% endif %}
+
+    </ul>
+
+  </div>
+</nav>
+		
+		<div class="container bootdey">
+			<div class="panel panel-default panel-order">
+				<div class="panel-heading">
+					<strong>Order history</strong>
+				</div>
+				
+				<br>
+				<br>
+
+				<div class="panel-body" id="panel-body">
+					
+
+				</div>
+				
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+
+		<footer class="bg-dark text-center text-white">
+		<!-- Footer -->
+
+
+		  <!-- Footer Links -->
+		  <div class="container text-center text-md-left">
+
+			<!-- Footer links -->
+			<div class="row text-center text-md-left mt-3 pb-3">
+
+			  <!-- Grid column -->
+			  <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+				<h6 class="text-uppercase mb-4 font-weight-bold">Pizza Go!</h6>
+				<p>Created by <br>
+				  1)Hitansh Doshi<br>
+				  2)Tejas Borkar<br>
+				  3)Shrusti Gupta
+
+				</p>
+			  </div>
+			  <!-- Grid column -->
+
+			  <hr class="w-100 clearfix d-md-none">
+
+			  <!-- Grid column -->
+			  <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+				<h6 class="text-uppercase mb-4 font-weight-bold">Products we offer</h6>
+				<p>
+				  Pizza
+				<p>
+				  Garlic Bread
+				</p>
+				<p>
+				  Beverage
+				</p>
+				<p>
+				  Desert
+				</p>
+			  </div>
+			  <!-- Grid column -->
+
+			  <hr class="w-100 clearfix d-md-none">
+
+			  <!-- Grid column -->
+			  <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+				<h6 class="text-uppercase mb-4 font-weight-bold">Links</h6>
+				<p>
+				  Home Page
+				</p>
+				<p>
+				  Login
+				</p>
+				<p>
+				  Sing Up
+				</p>
+				<p>
+				  Help
+				</p>
+			  </div>
+
+			  <!-- Grid column -->
+			  <hr class="w-100 clearfix d-md-none">
+
+			  <!-- Grid column -->
+			  <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+				<h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
+				<p>
+				  <i class="fas fa-home mr-3"></i> 101, KamalaNagar, New Delhi, India</p>
+				<p>
+				  <i class="fas fa-envelope mr-3"></i> email: info@gmail.com</p>
+				<p>
+				  <i class="fas fa-phone mr-3"></i>  Telephone: 01 234 567 88</p>
+				<p>
+				  <i class="fas fa-print mr-3"></i> Phone: + 01 234 567 89</p>
+			  </div>
+			  <!-- Grid column -->
+
+			</div>
+			<!-- Footer links -->
+
+			<hr>
+
+			<!-- Grid row -->
+			<div class="row justify-content-center">
+
+			  <!-- Grid column -->
+			  <div class="col-md-6 col-lg-8">
+
+				<!--Copyright-->
+				<p class="text-center">© 2020 Copyright:
+				  
+					<strong> Pizza Go!</strong>
+				  </a>
+				</p>
+
+			  </div>
+			  <!-- Grid column -->
+
+			  <!-- Grid column -->
+			  <div class="col-md-5 col-lg-4 ml-lg-0">
+
+				<!-- Social buttons -->
+				<div class="text-center text-md-right">
+				  <ul class="list-unstyled list-inline">
+					<li class="list-inline-item">
+					  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+						<i class="fab fa-facebook-f"></i>
+					  </a>
+					</li>
+					<li class="list-inline-item">
+					  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+						<i class="fab fa-twitter"></i>
+					  </a>
+					</li>
+					<li class="list-inline-item">
+					  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+						<i class="fab fa-google-plus-g"></i>
+					  </a>
+					</li>
+					<li class="list-inline-item">
+					  <a class="btn-floating btn-sm rgba-white-slight mx-1">
+						<i class="fab fa-linkedin-in"></i>
+					  </a>
+					</li>
+				  </ul>
+				</div>
+
+			  </div>
+			  <!-- Grid column -->
+
+			</div>
+			<!-- Grid row -->
+
+		  </div>
+		  <!-- Footer Links -->
+
+
+
+			<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+			  The above website is made for project purpose don't exepct any pizza delivery from us.
+			  Coded With &#10084;&#65039; and &#9749; while 🎓
+			</div>
+
+		  </footer>
+	</body>
+
+	<script language="javascript">
+
+/*
+Code for cancel button
+
+									<div class="pull-right">
+										<label class="label label-danger">
+											<button id="cancel">Cancel order</button>
+										</label>
+									</div>
+
+
+*/
+
+	function row(image, name, tag, cost, date, qty, item_id){
+			var history = `<div class="row">
+						<div class="col-md-1">
+
+							<img src="http://localhost:8000${image}" >
+						</div>
+						
+						<div class="col-md-11">
+							<div class="row">
+								
+								<div class="col-md-12">
+
+
+									
+									<span><strong>${name}</strong></span>
+									<span class="label label-info">(${tag})</span></br>
+									Quantity : ${qty}<br>
+									Cost Each: Rs. ${cost} <br />
+									Total Cost: Rs. ${cost*qty}<br>
+								</div>
+
+								<div class="col-md-12">
+									Order placed: ${date}
+								</div>
+							</div>
+					
+						</div>
+					
+					</div>
+					<br>`;
+
+			var rows = document.getElementById('panel-body').innerHTML;
+			document.getElementById('panel-body').innerHTML = rows + history;
+
+		}
+
+
+		{% for item in items %}
+			row('{{item.item_image}}', '{{item.item_name}}', '{{item.item_tag}}', '{{item.item_cost}}', '{{item.order_date}}', '{{item.order_item_qty}}', '{{item.order_item_id}}')
+		{% endfor %}
+
+	</script>
+	
+</html>

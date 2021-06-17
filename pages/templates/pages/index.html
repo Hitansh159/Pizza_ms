@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- teserpay,   -->
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,6 +60,14 @@
       display: inline-block;
     }
 
+    .category{
+      align-items: flex-start;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-content: space-around;
+      justify-content: space-around;
+    }
     
   </style>
 
@@ -68,15 +76,58 @@
 <body style="background-color: bisque;">
   {% load static %}
 
-  <nav class="navbar navbar-light" style="height: 90px; background-color: rgb(255, 255, 255);">
-    <div class="container-fluid">
-      <a class="navbar-brand mb-0 h1" href="#">
-        <img src="{% static 'pages/image/posters/logo.png' %}" style="mix-blend-mode: multiply;">
-        Pizza Go!
-      </a>
-    </div>
-  </nav>
+  <!-- TODO: NAVIGATION BAR  -->
 
+ <!--  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 90px; background-color: rgb(255, 255, 255);">
+    <div class="container-fluid">
+
+    
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/auth">sign in</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/signup">sign up</a>
+      </li>
+    </ul>
+  </div>
+</div>
+  </nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand mb-0 h1" href="\">
+    <img src="{% static 'pages/image/posters/logo.png' %}" style="mix-blend-mode: multiply;">
+    Pizza Go!
+  </a>
+
+  <div class="container-fluid" id="navbarSupportedContent">
+    
+    <ul class="navbar-nav mr-auto">
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/signout">Log out</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/auth">Log in</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/signup">Sign up</a>
+      </li>
+    
+    </ul>
+
+
+ 
+    <form class="d-flex">
+   
+      <input class="form-control mr-sm-2" id = "inputSearchFood" type="search" type="text" name="query" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="search()">Search</button>
+    </form>
+
+  </div>
+</nav>
 
 
   <div id="image_slider" class="carousel slide" data-bs-ride="carousel" style="height: 500px;">
@@ -106,7 +157,7 @@
   </div>
   <br>
 
-  <ul class="nav nav-pills nav-fill">
+  <ul class="nav nav-pills nav-fill" >
     <li class="nav-item">
       <button class="nav-link active" onclick="tab('pizzas')" id="pizzas_tab">Pizzas</a>
     </li>
@@ -119,19 +170,25 @@
     <li class="nav-item">
       <button class="nav-link" onclick="tab('combos')" id="combos_tab">Combos</a>
     </li>
+    <!-- <li class="nav-item">
+      <button class="nav-link" onclick="tab('search')" id="search_tab">Search</a>
+     
+    </li> -->
   </ul>
 
   <center>
-    <div id="pizzas">
+    <div id="pizzas" class="category">
     </div>
 
-    <div id="breads">
+    <div id="breads" class="category">
     </div>
 
-    <div id="drinks_desserts">
+    <div id="drinks_desserts" class="category">
     </div>
 
-    <div id="combos">
+    <div id="combos" class="category">
+    </div>
+    <!-- <div id="search" class="category"> -->
     </div>
 
   </center>
@@ -148,6 +205,31 @@
   <link rel=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
 
   <script>
+ 
+    all_items = {}
+
+    function search(){
+      
+   
+      document.getElementById("pizzas").innerText = " ";
+      document.getElementById("breads").innerText = " ";
+      document.getElementById("drinks_desserts").innerText = " ";
+      document.getElementById("combos").innerText = " ";
+     
+      query = document.getElementById('inputSearchFood').value.toLowerCase();
+      for(let id in all_items){
+        
+        var patt = new RegExp(query)
+        var res =  patt.exec(all_items[id].name.toLowerCase())
+      
+        if(res != null){
+          console.log(res)
+          create_card(all_items[id].id, all_items[id].name, all_items[id].image, all_items[id].details, all_items[id].price, 
+          all_items[id].avil, all_items[id].type)
+        }
+          
+      }
+    }
 
     function indicator(num) {
       return `<button type="button" data-bs-target="#image_slider" data-bs-slide-to="${num}" aria-label="Slide ${num}" style="background-color: #000000;"></button>`;
@@ -164,8 +246,8 @@
     }
 
     function card(id, name, image, details, price, avil, type) {
-      var path = `static/pages/image/${type}/${image}`;
-      var res = `<div class="card" style="width: 18rem;display: inline-block;margin: 15px;padding: 10px">
+      var path = `http://localhost:8000${image}`;
+      var res = `<div class="card" style="width: 18rem;margin: 15px;padding: 10px">
     <img src="${path}" class="card-img-top" alt="">
     <div class="card-body">
       <h5 class="card-title">${name}</h5>
@@ -200,6 +282,7 @@
     }
 
     function create_card(id, name, image, details, price, avil, type) {
+      all_items[id]={'id':id,'name':name,'image':image,'details':details,'price':price,'avil':avil,'type':type}
       var body = document.getElementById(type);
       var text = body.innerHTML;
       body.innerHTML = text + card(id, name, image, details, price, avil, type);
@@ -207,7 +290,9 @@
 
     // create_slides(["Pizza-licious.png", "maxresdefault.jpg"]);
     {% for image_dict in pizzas %}
+
   	create_card('{{image_dict.id}}', '{{image_dict.name}}', '{{image_dict.img}}', `{{ image_dict.tag }}`, '{{image_dict.price}}', '{{image_dict.avail}}', 'pizzas');
+
     {% endfor %}
 
     {% for image_dict in breads %}
@@ -221,6 +306,9 @@
     {% for image_dict in combos %}
     create_card('{{image_dict.id}}', '{{image_dict.name}}', '{{image_dict.img}}', `{{ image_dict.tag }}`, '{{image_dict.price}}', '{{image_dict.avail}}', "combos");
     {% endfor %}
+
+
+  
 
 
     posters = []
@@ -239,13 +327,15 @@
       var bread = document.getElementById("breads");
       var drink = document.getElementById("drinks_desserts");
       var combo = document.getElementById("combos");
-
+      <!-- var search = document.getElementById("search"); -->
+      
       var pizza_tab = document.getElementById("pizzas_tab");
       var bread_tab = document.getElementById("breads_tab");
       var drink_tab = document.getElementById("drinks_desserts_tab");
       var combo_tab = document.getElementById("combos_tab");
-
-
+      <!-- var search_tab = document.getElementById("search_tab"); -->
+     
+   
       var items = [pizza, bread, drink, combo];
       var tabs = [pizza_tab, bread_tab, drink_tab, combo_tab];
 
@@ -259,7 +349,7 @@
     function tab(name) {
       set_none();
       var pizza = document.getElementById(name);
-      pizza.style.display = "block";
+      pizza.style.display = "flex";
 
       var pizza_tab = document.getElementById(name + "_tab");
       pizza_tab.className = "nav-link active";
@@ -307,11 +397,8 @@
         <h6 class="text-uppercase mb-4 font-weight-bold">Pizza Go!</h6>
         <p>Created by <br>
           1)Hitansh Doshi
-          2)Aditya Dubey
-          3)Shivam Dubey
-          4)Shruti Dubey
-          5)Sumeet Dubey
-
+          2)Tejas Borker
+          3)Shrusti Gupta
         </p>
       </div>
       <!-- Grid column -->
@@ -340,18 +427,15 @@
       <!-- Grid column -->
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
         <h6 class="text-uppercase mb-4 font-weight-bold">Links</h6>
-        <p>
+        <a href="/">
           Home Page
-        </p>
-        <p>
+        </a></br>
+        <a href="/auth">
           Login
-        </p>
-        <p>
+        </a></br>
+        <a href="/auth/signup">
           Sing Up
-        </p>
-        <p>
-          Help
-        </p>
+        </a></br>
       </div>
 
       <!-- Grid column -->
@@ -381,14 +465,12 @@
 
       <!-- Grid column -->
       <div class="col-md-6 col-lg-8">
-
         <!--Copyright-->
         <p class="text-center">© 2020 Copyright:
           
             <strong> Pizza Go!</strong>
           </a>
         </p>
-
       </div>
       <!-- Grid column -->
 
@@ -423,15 +505,10 @@
 
       </div>
       <!-- Grid column -->
-
     </div>
     <!-- Grid row -->
-
   </div>
   <!-- Footer Links -->
-
-
-
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       The above website is made for project purpose don't exepct any pizza delivery from us.
       Coded With &#10084;&#65039; and &#9749; while 🎓
@@ -442,3 +519,4 @@
 </body>
 
 </html>
+

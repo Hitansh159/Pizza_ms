@@ -12,6 +12,7 @@ class Item(models.Model):
 class Order(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   address = models.TextField(default = "")
+  date = models.DateTimeField(auto_now=True)
 
 
 class OrderItem(models.Model):
@@ -20,6 +21,13 @@ class OrderItem(models.Model):
   quantity = models.IntegerField()
   description = models.TextField(default = "")
   totalCost = models.DecimalField(decimal_places=2, max_digits=10)
+
+  status_choice = [
+    ('order' , 'ordered'),
+    ('cancel', 'canceled')
+  ]
+
+  status = models.CharField(max_length=6, choices=status_choice, default = 'order')
 
 
 

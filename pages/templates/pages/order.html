@@ -30,8 +30,9 @@
         <tr>
           <th>SR No </th>
           <th>Item </th>
-          <th>Description</th>
           <th>Qyt </th>
+          <th>Description</th>
+          <th>Size</th>
           <th>Price</th>
         </tr>
       </thead>
@@ -46,13 +47,12 @@
     Address:<br>
     <textarea name="address" id="address"> </textarea>
     <center>
-      <button type="submit" class="btn btn-primary" onclick="order()">Order</button>
+      <button type="submit" class="btn btn-primary" onclick="order()" download>Order</button>
     </center>
   </div>
   
 
-
- <footer class="bg-dark text-center text-white">
+<footer class="bg-dark text-center text-white">
 <!-- Footer -->
 
 
@@ -67,11 +67,8 @@
         <h6 class="text-uppercase mb-4 font-weight-bold">Pizza Go!</h6>
         <p>Created by <br>
           1)Hitansh Doshi
-          2)Aditya Dubey
-          3)Shivam Dubey
-          4)Shruti Dubey
-          5)Sumeet Dubey
-
+          2)Tejas Borker
+          3)Shrusti Gupta
         </p>
       </div>
       <!-- Grid column -->
@@ -100,18 +97,15 @@
       <!-- Grid column -->
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
         <h6 class="text-uppercase mb-4 font-weight-bold">Links</h6>
-        <p>
+        <a href="/">
           Home Page
-        </p>
-        <p>
+        </a></br>
+        <a href="/auth">
           Login
-        </p>
-        <p>
+        </a></br>
+        <a href="/auth/signup">
           Sing Up
-        </p>
-        <p>
-          Help
-        </p>
+        </a></br>
       </div>
 
       <!-- Grid column -->
@@ -141,14 +135,12 @@
 
       <!-- Grid column -->
       <div class="col-md-6 col-lg-8">
-
         <!--Copyright-->
         <p class="text-center">© 2020 Copyright:
           
             <strong> Pizza Go!</strong>
           </a>
         </p>
-
       </div>
       <!-- Grid column -->
 
@@ -207,18 +199,20 @@ crossorigin="anonymous"></script>
 
 <script>
 
-  function rows(i, id, name, price){
+  function rows(i, id, name, price, type){
+    var size = "";
+    if(type == "pizzas")
+      size = `<select id="size${i}">
+              <option value = "small">Small</option>
+              <option value = "medium">Medium</option>
+              <option value = "large">Large</option>
+              </select>`;
+    else
+      size = `standard size`;
+
     var row = `<tr id="item${i}">
           <th scope="row">${i + 1}</th>
           <td>${name}</td>
-          <td>
-          <span class="material-icons" onclick="toggle(${i})">
-            assignment
-          </span>
-          <div id="ddes${i}" style="display:none;">
-            <textarea id="des${i}"> </textarea>
-          </div>
-          </td>
           <td>
             <select class="form-control" id="qyt${i}" onchange="change_price(${i}, ${price})">
               <option>0</option>
@@ -229,6 +223,17 @@ crossorigin="anonymous"></script>
               <option>5</option>
             </select>
           </td>
+          <td>
+          <span class="material-icons" onclick="toggle(${i})">
+            assignment
+          </span>
+          <div id="ddes${i}" style="display:none;">
+            <textarea id="des${i}"> </textarea>
+          </div>
+          </td>
+          <td>
+            ${size}
+          </td>          
           <td>
             <span id="amt${i}"> ${price} </span>
           </td>
@@ -250,8 +255,7 @@ crossorigin="anonymous"></script>
     var table = document.getElementById("table_body");
     var data = "";
     for(var i=0;i<items.length;i++){
-      console.log(items[i]['price']);
-      data += rows(i, items[i]['id'], items[i]['name'], items[i]['price']);
+      data += rows(i, items[i]['id'], items[i]['name'], items[i]['price'], items[i]['type']);
     }
     table.innerHTML = data;
   }
@@ -262,9 +266,9 @@ crossorigin="anonymous"></script>
       ddes.style.display = 'block';
     else
       ddes.style.display = 'none';
-  }
+  } 
 
-    function getCookie(name) {
+  function getCookie(name) {
       let cookieValue = null;
       if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
@@ -278,16 +282,18 @@ crossorigin="anonymous"></script>
         }
       }
       return cookieValue;
-    }
+  }
 
   function order(){
     var order = [];
     for(var i=0;i<items.length;i++){
       var item = items[i]['name'];
-      var des = document.getElementById(`des${i}`).value;
       var qyt = document.getElementById(`qyt${i}`).value;
+      var size = document.getElementById(`size${i}`).value;
+      var des = document.getElementById(`des${i}`).value;
       var price = document.getElementById(`amt${i}`).innerText;
-
+      des += `\nSize : ${size}`;
+      alert(des);
       if(qyt == 0) continue;
 
       var data = {'id':items[i]['id'], 'type':items[i]['type'], 'item': item, 'qyt': qyt, 'des': des, 'price': price}
