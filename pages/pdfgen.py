@@ -1,5 +1,6 @@
 import qrcode,webbrowser
 from reportlab.pdfgen import canvas
+
 def getTotal(list):
   total=0
   for data in list:
@@ -21,17 +22,15 @@ def getTotalDis(list):
 def rightalingn(pdf,string,left,right,ycoordinate):
   length=len(string)
   totalLength=(right-left)/7
-  print(totalLength)
   spaces=int(totalLength-length)
-  print(spaces)
   pdf.drawString(right,ycoordinate," "*spaces)
   left=left+(7*spaces)
   pdf.drawString(left,ycoordinate,string)
 
 def header(header,pdf):
   pdf.setTitle(header.date+"Invoice")
-  # logo="logo.jpeg"
-  # pdf.drawInlineImage(logo,190,253)
+  logo="pages/logo.png"
+  pdf.drawInlineImage(logo,450,750)
 
   pdf.line(30,815,350,815)
   pdf.setFont("Courier-Bold",20)
@@ -45,10 +44,8 @@ def header(header,pdf):
 
   pdf.drawString(30,735,"Invoice Number: "+ str(int(header.InvoiceNumber)))
   pdf.drawString(30,720,"Customer Name: "+ str(header.CustomerName))
-  pdf.drawString(30,705,"Contact Number: "+ str(header.CustomerContact))
+  pdf.drawString(30,705,"Email id: "+ str(header.Email))
   pdf.drawString(30,690,"Date: "+ str(header.date))
-  # img = "./logo.png"
-  # pdf.drawInlineImage(img,450,750)
   
 
 def middle(pdf):

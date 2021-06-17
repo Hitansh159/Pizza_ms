@@ -10,8 +10,8 @@ def signup(request):
 
 def signup_test(request):
 
-	user = User.objects.create_user(request.POST['id'], password= request.POST['password'])
-	user.name = request.POST['name'];
+	user = User.objects.create_user(request.POST['name'], password= request.POST['password'])
+	user.email = request.POST['id'];
 
 	user.save()
 
@@ -21,7 +21,7 @@ def login_pag(request):
   return HttpResponse(render(request, 'login/login.html', {"result":""}))
 
 def login_test(request):
-	user = authenticate(request = request, username= request.POST['id'], password=request.POST['password'])
+	user = authenticate(request = request, email= request.POST['id'], password=request.POST['password'])
 
 	if user is not None:
 		login(request, user)
