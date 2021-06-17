@@ -22,5 +22,12 @@ class OrderItem(models.Model):
   description = models.TextField(default = "")
   totalCost = models.DecimalField(decimal_places=2, max_digits=10)
 
+  status_choice = [
+    ('order' , 'ordered'),
+    ('cancel', 'canceled')
+  ]
+
+  status = models.CharField(max_length=6, choices=status_choice, default = 'order')
+
 
 

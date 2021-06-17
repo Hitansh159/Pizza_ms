@@ -1,5 +1,5 @@
 from django.http import HttpResponse, FileResponse
-from django.shortcuts import render, loader
+from django.shortcuts import render, loader, redirect
 from .models import Item, Order, OrderItem
 from django.contrib.auth.models import User
 
@@ -55,7 +55,6 @@ def index(request):
 
   response = render(request, 'pages/index.html', contexts)
   return HttpResponse(response)
-
 def order(request):
   if request.user.is_anonymous:
     return HttpResponse(render(request, 'login/login.html', {"result":""}))
@@ -103,7 +102,27 @@ def order_done(request):
 
 
 def my_order(request):
-  return HttpResponse(render(request, 'pages/my_orders.html', {}))
+  if request.user.is_anonymous:
+    return redirect('/')
+
+  items = []
+
+  orders = Order.objects.filter(user_id = request.user.id)
+  for order in orders:
+    order_items = OrderItem.objects.filter(orderId = order.id)
+    for order_item in order_items:
+      item = Item.objects.get(id = order_item.itemId)
+      date = f'{order.date.day}/{order.date.month}/{order.date.year}'
+      items.append(
+        {"item_name": item.name,
+        'item_tag': item.tag,
+        'item_image': item.image.url,
+        'item_cost': item.price,
+        'order_date': date,
+        'order_item_qty': order_item.quantity,
+        'order_item_id': order_item.id})
+
+  return HttpResponse(render(request, 'pages/my_orders.html', {"items":items}))
 
 def payment(request):
   return HttpResponse(render(request, 'pages/payment.html', {}))
