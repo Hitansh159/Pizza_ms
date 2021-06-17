@@ -76,26 +76,6 @@
 <body style="background-color: bisque;">
   {% load static %}
 
-  <!-- TODO: NAVIGATION BAR  -->
-
- <!--  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 90px; background-color: rgb(255, 255, 255);">
-    <div class="container-fluid">
-
-    
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/auth">sign in</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/auth/signup">sign up</a>
-      </li>
-    </ul>
-  </div>
-</div>
-  </nav> -->
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand mb-0 h1" href="\">
     <img src="{% static 'pages/image/posters/logo.png' %}" style="mix-blend-mode: multiply;">
@@ -105,29 +85,38 @@
   <div class="container-fluid" id="navbarSupportedContent">
     
     <ul class="navbar-nav mr-auto">
-      
+      {% if user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="/auth/signout">Log out</a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/my_orders">My orders</a>
+      </li>
+      {% endif %}
+
+      {% if user.is_anonymous %}
       <li class="nav-item">
         <a class="nav-link" href="/auth">Log in</a>
       </li>
+
       <li class="nav-item">
         <a class="nav-link" href="/auth/signup">Sign up</a>
       </li>
-    
+      {% endif %}
+
     </ul>
 
 
- 
+
     <form class="d-flex">
-   
-      <input class="form-control mr-sm-2" id = "inputSearchFood" type="search" type="text" name="query" placeholder="Search" aria-label="Search">
+       <input class="form-control mr-sm-2" id = "inputSearchFood" type="search" type="text" name="query" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="search()">Search</button>
     </form>
 
   </div>
 </nav>
+
 
 
   <div id="image_slider" class="carousel slide" data-bs-ride="carousel" style="height: 500px;">
