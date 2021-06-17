@@ -53,6 +53,7 @@ def index(request):
   for files in os.listdir( os.getcwd() +"/pages/static/pages/image/posters"):
     contexts['posters'].append(files)
 
+
   response = render(request, 'pages/index.html', contexts)
   return HttpResponse(response)
 
