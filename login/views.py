@@ -21,7 +21,7 @@ def login_pag(request):
   return HttpResponse(render(request, 'login/login.html', {"result":""}))
 
 def login_test(request):
-	user = authenticate(request = request, email= request.POST['id'], password=request.POST['password'])
+	user = authenticate(request = request, username= request.POST['id'], password=request.POST['password'])
 
 	if user is not None:
 		login(request, user)

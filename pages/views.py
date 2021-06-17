@@ -87,7 +87,7 @@ def order_done(request):
     item_db.description = item['des']
     item_db.totalCost = item['price']
     item_db.save()
-    temp = [item['item'], int(item['qyt']), float(item['price'])/float(item['qyt']), 0, float(item['price']), 18.0]
+    temp = [item['item']+'\n'+item['des'], int(item['qyt']), float(item['price'])/float(item['qyt']), 0, float(item['price']), 18.0]
     Products.append(temp)
 
   genratePDF(request.user, request.user.email, order_db.id, Products)
