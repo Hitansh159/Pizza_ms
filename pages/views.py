@@ -107,7 +107,7 @@ def my_order(request):
 
   items = []
 
-  orders = Order.objects.filter(user_id = request.user.id)
+  orders = Order.objects.filter(user_id = request.user.id).order_by('id').reverse()
   for order in orders:
     order_items = OrderItem.objects.filter(orderId = order.id)
     for order_item in order_items:
@@ -119,6 +119,7 @@ def my_order(request):
         'item_image': item.image.url,
         'item_cost': item.price,
         'order_date': date,
+        'order_bill': order.bill.url,
         'order_item_qty': order_item.quantity,
         'order_item_id': order_item.id})
 

@@ -86,6 +86,12 @@
   <div class="container-fluid" id="navbarSupportedContent">
     
     <ul class="navbar-nav mr-auto">
+    	{% if request.path != '/' %}
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      {% endif %}
+      
       {% if user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="/auth/signout">Log out</a>
@@ -292,7 +298,7 @@ Code for cancel button
 
 */
 
-	function row(image, name, tag, cost, date, qty, item_id){
+	function row(image, name, tag, cost, date, qty, item_id, bill){
 			var history = `<div class="row">
 						<div class="col-md-1">
 
@@ -303,6 +309,12 @@ Code for cancel button
 							<div class="row">
 								
 								<div class="col-md-12">
+
+									<div class="pull-right">
+										<a href="http://localhost:8000${bill}" download>
+											Download Bill
+										</a>
+									</div>
 
 
 									
@@ -330,7 +342,7 @@ Code for cancel button
 
 
 		{% for item in items %}
-			row('{{item.item_image}}', '{{item.item_name}}', '{{item.item_tag}}', '{{item.item_cost}}', '{{item.order_date}}', '{{item.order_item_qty}}', '{{item.order_item_id}}')
+			row('{{item.item_image}}', '{{item.item_name}}', '{{item.item_tag}}', '{{item.item_cost}}', '{{item.order_date}}', '{{item.order_item_qty}}', '{{item.order_item_id}}', '{{item.order_bill}}');
 		{% endfor %}
 
 	</script>

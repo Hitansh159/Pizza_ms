@@ -13,6 +13,7 @@ class Order(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   address = models.TextField(default = "")
   date = models.DateTimeField(auto_now=True)
+  bill = models.FileField(upload_to ="invoice/", default='invoice/default.pdf' )
 
 
 class OrderItem(models.Model):
