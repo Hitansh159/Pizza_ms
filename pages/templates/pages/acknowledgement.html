@@ -4,13 +4,24 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pizza GO - order</title>
+  <title>Pizza GO - Acknowledgement</title>
   
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+
+  <style type="text/css">
+    .text-box{
+      min-height: 500px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: center;
+    }
+  </style>
 
 </head>
 <body style="background-color: bisque;">
@@ -58,34 +69,12 @@
   </div>
 </nav>
 
-
-  <div class="container">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>SR No </th>
-          <th>Item </th>
-          <th>Qyt </th>
-          <th>Description</th>
-          <th>Size</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-
-      <tbody id="table_body">
-  
-
-
-      </tbody>
-
-    </table>
-    Address:<br>
-    <textarea name="address" id="address"> </textarea>
-    <center>
-      <button type="submit" class="btn btn-primary" onclick="order()" download>Order</button>
-    </center>
-  </div>
-  
+<div class="text-box">
+<center>
+<h1>Thank You for shoping <br>
+  you can download bill from <a href="/my_orders">here</a> </h1>
+</center>
+</div>
 
 <footer class="bg-dark text-center text-white">
 <!-- Footer -->
@@ -231,145 +220,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
 crossorigin="anonymous"></script>
-
-<script>
-
-  function rows(i, id, name, price, type){
-    var size = "";
-    if(type == "pizzas")
-      size = `<select id="size${i}">
-              <option value = "small">Small</option>
-              <option value = "medium">Medium</option>
-              <option value = "large">Large</option>
-              </select>`;
-    else
-      size = `<select id="size${i}">
-              <option value = "standard" selected>Standard Size</option>
-              </select>`;
-
-    var row = `<tr id="item${i}">
-          <th scope="row">${i + 1}</th>
-          <td>${name}</td>
-          <td>
-            <select class="form-control" id="qyt${i}" onchange="change_price(${i}, ${price})">
-              <option>0</option>
-              <option selected>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </td>
-          <td>
-          <span class="material-icons" onclick="toggle(${i})">
-            assignment
-          </span>
-          <div id="ddes${i}" style="display:none;">
-            <textarea id="des${i}"> </textarea>
-          </div>
-          </td>
-          <td>
-            ${size}
-          </td>          
-          <td>
-            <span id="amt${i}"> ${price} </span>
-          </td>
-
-        </tr>`;
-
-      return row;
-  }
-
-  function change_price(id, price) {
-    var amt = document.getElementById("amt" + id);
-    var qyt = document.getElementById("qyt" + id);
-
-    amt.innerText = parseFloat(price * qyt.value);
-  }
-
-  function add_row(items){
-    console.log(items);
-    var table = document.getElementById("table_body");
-    var data = "";
-    for(var i=0;i<items.length;i++){
-      data += rows(i, items[i]['id'], items[i]['name'], items[i]['price'], items[i]['type']);
-    }
-    table.innerHTML = data;
-  }
-
-  function toggle(id){
-    var ddes = document.getElementById(`ddes${id}`);
-    if(ddes.style.display == 'none')
-      ddes.style.display = 'block';
-    else
-      ddes.style.display = 'none';
-  } 
-  function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          // Does this cookie string begin with the name we want?
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
-        }
-      }
-      return cookieValue;
-  }
-
-  function order(){
-    var order = [];
-    for(var i=0;i<items.length;i++){
-      var item = items[i]['name'];
-      var qyt = document.getElementById(`qyt${i}`).value;
-      var size = document.getElementById(`size${i}`).value;
-      var des = document.getElementById(`des${i}`).value;
-      var price = document.getElementById(`amt${i}`).innerText;
-      des += `\nSize : ${size}`;
-      if(qyt == 0) continue;
-
-      var data = {'id':items[i]['id'], 'type':items[i]['type'], 'item': item, 'qyt': qyt, 'des': des, 'price': price}
-
-      order.push(data);
-    }
-    
-    fetch('/order_done/', 
-      {
-      method: 'POST',
-      credentials: "same-origin",
-      headers: {
-        "X-CSRFToken": getCookie("csrftoken"),
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        'address': document.getElementById('address').value,
-        'order': order,
-      }),
-    })
-    .then(res=>{
-      console.log(res);
-      sessionStorage.clear(); 
-      if(res.status == 200){
-        location.href= '/payment';
-      }
-      else{
-        alert("Their is some error please retry");
-        console.log("unsucessful");
-        location.href= '/';
-      }
-    });
-  }
-  const items = JSON.parse(sessionStorage.getItem('order'));
-
-  for(item in items){
-    console.log(item);
-  }
-  add_row(items);
-
-</script>
 
 </html>
