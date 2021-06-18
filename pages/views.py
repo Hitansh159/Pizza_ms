@@ -55,6 +55,7 @@ def index(request):
 
   response = render(request, 'pages/index.html', contexts)
   return HttpResponse(response)
+
 def order(request):
   if request.user.is_anonymous:
     return HttpResponse(render(request, 'login/login.html', {"result":""}))
@@ -62,6 +63,9 @@ def order(request):
     context = {}
     response = render(request, 'pages/order.html', context)
     return HttpResponse(response)
+
+def acknowledgement(request):
+  return HttpResponse(render(request, 'pages/acknowledgement.html', {}))
 
 def order_done(request):
   body_unicode = request.body.decode('utf-8') 
@@ -90,14 +94,8 @@ def order_done(request):
     Products.append(temp)
 
   genratePDF(request.user, request.user.email, order_db.id, Products)
-
-  path = './Invoice/'+str(order_db.id)+'.pdf'
-  # with open(path, 'rb') as fh:  
-  #   response = HttpResponse(fh.read(), content_type="application/pdf")
-  #   response['Content-Disposition'] = 'inline; filename=' + os.path.basename(path)
-  response = FileResponse(open(path, 'rb'))  
-  return HttpResponse( response)
-
+  order_db.bill.name = f'invoice/{order_db.id}.pdf' 
+  order_db.save()
   return HttpResponse("Working")
 
 
@@ -137,7 +135,7 @@ def netbanking(request):
 def genratePDF(custName, custEmail, orderId, Products ):
 
   head=header(custName, custEmail, orderId)
-  pdf= canvas.Canvas(".\\Invoice\\"+str(int(head.InvoiceNumber))+".pdf")
+  pdf= canvas.Canvas(".\\media\\Invoice\\"+str(int(head.InvoiceNumber))+".pdf")
   pdfgen.header(head,pdf)
   pdfgen.middle(pdf)
   ycooridinate=650
