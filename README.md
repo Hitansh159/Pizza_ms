@@ -3,7 +3,7 @@ _____
 
 ## description
 ___
-A Pizza website with simple UI with payment page, pdf bill genration 
+A Pizza website with simple UI with payment page, pdf bill generation 
 
 ## Prerequisites 
 ____
