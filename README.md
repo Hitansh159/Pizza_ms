@@ -35,5 +35,7 @@ Images used in project are taken from internet. This project is for Educational 
 ## Contact
 ___
 Email: [hkd159@gmail.com](mailto:hkd159@gmail.com)
+
 Github: [hitnash159](https://github.com/Hitansh159)
+
 LinkedIn: [Hitansh](https://www.linkedin.com/in/hitansh-doshi-b81530197)
