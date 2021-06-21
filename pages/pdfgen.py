@@ -1,4 +1,3 @@
-import qrcode,webbrowser
 from reportlab.pdfgen import canvas
 
 def getTotal(list):
