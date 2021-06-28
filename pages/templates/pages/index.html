@@ -125,7 +125,7 @@
 
 
 
-  <div id="image_slider" class="carousel slide" data-bs-ride="carousel" style="height: 500px;">
+  <div id="image_slider" class="carousel slide" data-bs-ride="carousel" style="max-height: 500px;">
 
     <div class="carousel-indicators" id="carousel-indicators">
       <button type="button" data-bs-target="#image_slider" data-bs-slide-to="0" aria-label="Slide 1" class="active"
@@ -135,7 +135,7 @@
 
     <div class="carousel-inner" id="carousel-inner">
       <div class="carousel-item active" style="vertical-align: bottom;">
-        <img src="{% static 'pages/image/posters/poster.png' %}" class="d-block w-100" alt="..." style="">
+        <img src="{% static 'pages/image/posters/poster.png' %}" class="d-block w-100" alt="..." style="max-height: 500px">
         <div class="carousel-caption d-none d-md-block">
         </div>
       </div>
@@ -241,9 +241,9 @@
     }
 
     function card(id, name, image, details, price, avil, type) {
-      var path = `http://localhost:8000${image}`;
+      
       var res = `<div class="card" style="width: 18rem;margin: 15px;padding: 10px">
-    <img src="${path}" class="card-img-top" alt="">
+    <img src="${image}" class="card-img-top" alt="">
     <div class="card-body">
       <h5 class="card-title">${name}</h5>
       <p class="card-text">
