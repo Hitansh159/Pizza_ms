@@ -27,7 +27,7 @@ SECRET_KEY = 'x0+gw+4!qs5%wvx_bn3gqxii(9y+w8k7w7c%jzj3yd-axj1w!3'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-		'calm-citadel-12785.herokuapp.com',
+		'pizza-go.herokuapp.com',
 		'localhost' ]
 
 
