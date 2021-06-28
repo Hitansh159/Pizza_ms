@@ -135,7 +135,7 @@ def netbanking(request):
 def genratePDF(custName, custEmail, orderId, Products ):
 
   head=header(custName, custEmail, orderId)
-  pdf= canvas.Canvas(".\\media\\Invoice\\"+str(int(head.InvoiceNumber))+".pdf")
+  pdf= canvas.Canvas(os.path.join(os.getcwd(), "media","Invoice", f"{int(head.InvoiceNumber)}.pdf"))
   pdfgen.header(head,pdf)
   pdfgen.middle(pdf)
   ycooridinate=650
